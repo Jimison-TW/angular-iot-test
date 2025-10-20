@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { connect, MqttClient } from 'mqtt';
+import { MqttClient } from 'mqtt';
 import { BehaviorSubject } from 'rxjs';
+import mqtt from 'mqtt';
 
 @Injectable({ providedIn: 'root' })
 export class MqttService {
@@ -11,7 +12,7 @@ export class MqttService {
   public message$ = new BehaviorSubject<any>(null);
 
   constructor() {
-    this.client = connect(this.brokerUrl);
+    this.client = mqtt.connect(this.brokerUrl);
 
     this.client.on('connect', () => {
       console.log('MQTT Connected');
