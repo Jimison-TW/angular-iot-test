@@ -15,9 +15,9 @@ export class MqttService {
     this.client = mqtt.connect(this.brokerUrl);
 
     this.client.on('connect', () => {
-      console.log('MQTT Connected');
+      // console.log('MQTT Connected');
       this.client.subscribe(this.topic, err => {
-        if (!err) console.log(`Subscribed to topic: ${this.topic}`);
+        // if (!err) console.log(`Subscribed to topic: ${this.topic}`);
       });
     });
 

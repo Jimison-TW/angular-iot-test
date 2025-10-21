@@ -14,7 +14,7 @@ import { DecimalPipe } from '@angular/common';
         }
     </div>
   `,
-  imports: [DecimalPipe], // ✅ 加上這行
+  imports: [DecimalPipe],
 })
 export class LiveWeatherComponent implements OnInit {
   weather: any;
