@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MqttService } from '../../mqtt/mqtt.service';
 import { LiveChartComponent } from '../component/liveChart';
 import { WeatherDataType } from '../../constant/config';
@@ -11,7 +11,10 @@ import { ChartData, WeatherData } from '../../constant/dataType';
   styleUrl: './dashboard.css'
 })
 export class Dashboard implements OnInit, OnDestroy {
-  public weatherDatas: { type: WeatherDataType, data: ChartData }[] = [];
+  public weatherDatas: { type: WeatherDataType, data: ChartData }[] = [
+    { type: WeatherDataType.Temperature, data: { value: 0, time: '' } },
+    { type: WeatherDataType.Humidity, data: { value: 0, time: '' } }
+  ];;
 
   constructor(private mqtt: MqttService) { }
 
