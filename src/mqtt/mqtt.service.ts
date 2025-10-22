@@ -40,4 +40,8 @@ export class MqttService {
     };
     this.client.publish(this.topic, JSON.stringify(payload));
   }
+
+  public disconnect() {
+    this.client.end()
+  }
 }

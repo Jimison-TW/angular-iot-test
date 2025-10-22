@@ -1,3 +1,6 @@
 <p>dashboard works!</p>
-<!-- <app-live-weather></app-live-weather> -->
- <app-temperature-chart></app-temperature-chart>
+<div class="dashboard">
+    @for(chart of weatherDatas; track chart.type){
+    <live-chart-component [type]="chart.type" [chartData]="chart.data"></live-chart-component>
+    }
+</div>
