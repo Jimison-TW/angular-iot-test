@@ -1,0 +1,83 @@
+@import "primeicons/primeicons.css";
+
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Header 樣式 */
+.layout-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Sidebar 樣式 */
+:host ::ng-deep .layout-sidebar {
+    position: fixed;
+    /* 修改為 fixed */
+    width: 250px !important;
+    height: calc(100vh - 4rem) !important;
+    /* 修改高度計算 */
+    top: 4rem !important;
+    /* 對齊 header 底部 */
+    left: 0;
+    /* 新增 */
+    background-color: #f8f9fa;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    /* 新增，確保在主內容之上 */
+}
+
+.sidebar-content {
+    padding: 1rem;
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.menu-item {
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover,
+.active-link {
+    background-color: #e9ecef;
+    color: #2196F3;
+}
+
+/* Main Content 樣式 */
+.layout-main {
+    position: relative;
+    /* 新增 */
+    margin-top: 4rem;
+    padding: 1rem;
+    transition: margin-left 0.3s;
+    width: calc(100% - 250px);
+    /* 修改寬度計算 */
+    margin-left: 250px;
+    /* 修改 */
+}

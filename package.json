@@ -31,6 +31,7 @@
     "@primeuix/themes": "^1.2.5",
     "echarts": "^6.0.0",
     "mqtt": "^5.14.1",
+    "primeicons": "^7.0.0",
     "primeng": "^20.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
