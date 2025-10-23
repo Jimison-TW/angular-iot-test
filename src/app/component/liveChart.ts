@@ -11,12 +11,26 @@ import { OptionType, WeatherDataType } from '../../constant/config';
         <div class="chart" [id]="chartId"></div>
     `,
     styles: `
+        :host {
+            width: 100%;
+            display: block;
+        }
+        h3 {
+            margin: 0 0 1rem 0;
+            text-align: center;
+        }
         .chart {
             width: 100%;
             height: 350px;
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+        @media screen and (max-width: 991px) {
+            .chart {
+                height: 300px;
+            }
         }
     `
 })
@@ -45,23 +59,46 @@ export class LiveChartComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     ngAfterViewInit() {
-        this.initCharts()
+        this.initCharts();
+        // 監聽視窗大小變化
+        window.addEventListener('resize', this.handleResize.bind(this));
+    }
+
+    ngOnDestroy() {
+        // 清理事件監聽
+        window.removeEventListener('resize', this.handleResize.bind(this));
+        // 銷毀圖表實例
+        this.chart?.dispose();
+    }
+
+    private handleResize() {
+        this.zone.runOutsideAngular(() => {
+            this.chart?.resize();
+        });
     }
 
     private initCharts() {
-        const ele = document.getElementById(this.chartId)
-        if (!ele) return
-        this.chart = echarts.init(ele)
-        this.chartTitle = this.type === WeatherDataType.Temperature ? 'Temperature (°C)' : 'Humidity (%)'
-        this.chart.setOption(this.createOption(OptionType.Line, this.chartTitle))
+        const ele = document.getElementById(this.chartId);
+        if (!ele) return;
+
+        this.zone.runOutsideAngular(() => {
+            this.chart = echarts.init(ele);
+            this.chartTitle = this.type === WeatherDataType.Temperature ? 'Temperature (°C)' : 'Humidity (%)';
+            this.chart.setOption(this.createOption(OptionType.Line, this.chartTitle));
+        });
     }
 
 
     private updateCharts() {
-        this.chart?.setOption({
+        if (!this.chart) return;
+
+        const option = {
             xAxis: { data: this.storeDatas.map(d => d.time.slice(11, 16)) },
             series: [{ type: 'line', data: this.storeDatas.map(d => d.value) }]
-        })
+        };
+
+        this.chart.setOption(option);
+        this.handleResize(); // 確保圖表大小正確
     }
 
     private createOption(type: OptionType, title: string): EChartsCoreOption {

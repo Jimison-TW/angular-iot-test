@@ -3,13 +3,16 @@
   <p-menubar class="layout-header">
     <ng-template pTemplate="start">
       <div class="header-title">
+        <button (click)="sidebarVisible.set(!sidebarVisible())" class="p-button-text p-button-lg menu-button">
+          <i class="pi pi-bars"></i>
+        </button>
         <span class="title">{{ title() }}</span>
       </div>
     </ng-template>
   </p-menubar>
 
   <!-- Sidebar -->
-  <div class="layout-sidebar">
+  <div class="layout-sidebar" [class.active]="sidebarVisible()">
     <div class="sidebar-content">
       <h3>天氣監控</h3>
       <div class="menu-items">

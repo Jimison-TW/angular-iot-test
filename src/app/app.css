@@ -30,19 +30,15 @@
 /* Sidebar 樣式 */
 :host ::ng-deep .layout-sidebar {
     position: fixed;
-    /* 修改為 fixed */
     width: 250px !important;
     height: calc(100vh - 4rem) !important;
-    /* 修改高度計算 */
     top: 4rem !important;
-    /* 對齊 header 底部 */
     left: 0;
-    /* 新增 */
     background-color: #f8f9fa;
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
     z-index: 999;
-    /* 新增，確保在主內容之上 */
 }
+
 
 .sidebar-content {
     padding: 1rem;
@@ -72,12 +68,50 @@
 /* Main Content 樣式 */
 .layout-main {
     position: relative;
-    /* 新增 */
     margin-top: 4rem;
     padding: 1rem;
     transition: margin-left 0.3s;
     width: calc(100% - 250px);
-    /* 修改寬度計算 */
     margin-left: 250px;
-    /* 修改 */
+}
+
+/* RWD 設定 */
+@media screen and (min-width: 992px) {
+    .menu-button {
+        display: none;
+    }
+
+    :host ::ng-deep .layout-sidebar {
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    .layout-main {
+        margin-left: 250px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    :host ::ng-deep .layout-sidebar {
+        transform: translateX(-100%);
+        visibility: hidden;
+        transition: transform 0.25s ease-in-out, visibility 0.25s;
+    }
+
+    :host ::ng-deep .layout-sidebar.active {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    .layout-main {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 1rem;
+    }
+
+    /* 當側邊欄開啟時，讓主內容覆蓋在側邊欄之上（若想讓主內容縮小改為向右移可調整） */
+    .sidebar-active {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
 }

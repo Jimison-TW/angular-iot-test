@@ -1,6 +1,19 @@
 .dashboard {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    /* 固定兩列 */
     grid-gap: 20px;
     padding: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 991px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+        /* 小螢幕時改為單列 */
+        padding: 10px;
+        grid-gap: 15px;
+    }
 }

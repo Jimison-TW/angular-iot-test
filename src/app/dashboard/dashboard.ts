@@ -28,7 +28,7 @@ export class Dashboard implements OnInit, OnDestroy {
     this.mqtt.message$.subscribe(msg => {
       if (msg) {
         const data: WeatherData = JSON.parse(JSON.stringify(msg));
-        // console.warn(data)
+        console.warn(data)
         this.weatherDatas = []
         this.weatherDatas = [
           { type: WeatherDataType.Temperature, data: { value: data.temperature, time: data.time } },
