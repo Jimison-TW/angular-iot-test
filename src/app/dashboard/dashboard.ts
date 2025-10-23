@@ -12,11 +12,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './dashboard.css'
 })
 export class Dashboard implements OnInit, OnDestroy {
-  public weatherDatas: { type: WeatherDataType, data: ChartData }[] = [
-    { type: WeatherDataType.Temperature, data: { value: 0, time: '' } },
-    { type: WeatherDataType.Humidity, data: { value: 0, time: '' } }
-  ];
   public currentCity = '';
+  public weatherDatas: { city: string, type: WeatherDataType, data: ChartData }[] = [
+    { city: this.currentCity, type: WeatherDataType.Temperature, data: { value: 0, time: '' } },
+    { city: this.currentCity, type: WeatherDataType.Humidity, data: { value: 0, time: '' } }
+  ];
 
   constructor(private mqtt: MqttService, private route: ActivatedRoute) { }
 
@@ -36,7 +36,7 @@ export class Dashboard implements OnInit, OnDestroy {
   }
 
   private connectMqtt(city: string) {
-    this.mqtt.connect(`weather/${city}`); // 連接新的主題
+    this.mqtt.subscribeTopic(`weather/${city}`); // 連接新的主題
     this.mqtt.message$.subscribe(msg => {
       console.warn(msg)
       if (msg) {
@@ -44,8 +44,8 @@ export class Dashboard implements OnInit, OnDestroy {
         // console.warn(data)
         this.weatherDatas = []
         this.weatherDatas = [
-          { type: WeatherDataType.Temperature, data: { value: data.temperature, time: data.time } },
-          { type: WeatherDataType.Humidity, data: { value: data.humidity, time: data.time } }
+          { city: this.currentCity, type: WeatherDataType.Temperature, data: { value: data.temperature, time: data.time } },
+          { city: this.currentCity, type: WeatherDataType.Humidity, data: { value: data.humidity, time: data.time } }
         ]
       }
     });

@@ -36,6 +36,7 @@ import { OptionType, WeatherDataType } from '../../constant/config';
 })
 
 export class LiveChartComponent implements OnInit, AfterViewInit, OnChanges {
+    @Input() city?: string
     @Input() type?: WeatherDataType
     @Input() chartData?: ChartData
 
@@ -52,10 +53,24 @@ export class LiveChartComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        let { currentValue } = changes['chartData']
-        this.addDataPoint(this.storeDatas, currentValue)
+        console.warn('LiveChartComponent changes:', changes);
+        // 當 router 傳入的 city 改變時，清空資料並重置圖表
+        if (changes['city'] && !changes['city'].firstChange) {
+            this.storeDatas = [];
+            // 清除圖表內容並重設 option
+            this.zone.runOutsideAngular(() => {
+                this.chart?.clear();
+                this.chart?.setOption(this.createOption(OptionType.Line, this.chartTitle));
+                this.chart?.resize();
+            });
+        }
 
-        this.zone.runOutsideAngular(() => this.updateCharts());
+        if (changes['chartData'] && changes['chartData'].currentValue) {
+            let { currentValue } = changes['chartData']
+            this.addDataPoint(this.storeDatas, currentValue)
+
+            this.zone.runOutsideAngular(() => this.updateCharts());
+        }
     }
 
     ngAfterViewInit() {
