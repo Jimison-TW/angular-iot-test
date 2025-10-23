@@ -1,3 +1,16 @@
+<h3>
+    @switch (this.currentCity) {
+    @case ('taipei') {
+    台北即時天氣圖表
+    }
+    @case ('taichung') {
+    台中即時天氣圖表
+    }
+    @case ('kaohsiung') {
+    高雄即時天氣圖表
+    }
+    }
+</h3>
 <div class="dashboard">
     @for(chart of weatherDatas; track chart.type){
     <live-chart-component [type]="chart.type" [chartData]="chart.data"></live-chart-component>

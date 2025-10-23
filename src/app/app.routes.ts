@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { Dashboard } from './dashboard/dashboard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // 預設導向 Dashboard
-  { path: 'dashboard', component: Dashboard },
+  { path: '', redirectTo: 'dashboard/taipei', pathMatch: 'full' }, // 預設導向 Dashboard
+  { path: 'dashboard/:city', component: Dashboard },
 ];
 
 @NgModule({

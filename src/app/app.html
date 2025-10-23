@@ -17,7 +17,8 @@
       <h3>天氣監控</h3>
       <div class="menu-items">
         @for (city of cities; track city.name) {
-        <a routerLinkActive="active-link" class="menu-item" (click)="sidebarVisible.set(false)">
+        <a [routerLink]="city.routerLink" routerLinkActive="active-link" class="menu-item"
+          (click)="sidebarVisible.set(false)">
           {{ city.name }}的天氣
         </a>
         }
