@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "predeploy": "ng build --configuration production --base-href /Jimison-TW/",
-    "deploy": "gh-pages -d dist/angular-iot-test"
+    "predeploy": "ng build --configuration production --base-href /angular-iot-test/",
+    "deploy": "gh-pages -d dist/test-app/browser"
   },
   "prettier": {
     "printWidth": 100,
